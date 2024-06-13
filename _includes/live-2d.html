@@ -1,0 +1,90 @@
+
+<!-- live-2d -->
+
+<script>
+
+    const live2d_path = "https://cdn.jsdelivr.net/gh/Dreamer-Paul/Pio@2.4/static/";
+    function loadExternalResource(url, type) {
+        return new Promise((resolve, reject) => {
+            let tag;
+    
+            if (type === "css") {
+                tag = document.createElement("link");
+                tag.rel = "stylesheet";
+                tag.href = url;
+            }
+            else if (type === "js") {
+                tag = document.createElement("script");
+                tag.src = url;
+            }
+            if (tag) {
+                tag.onload = () => resolve(url);
+                tag.onerror = () => reject(url);
+                document.head.appendChild(tag);
+            }
+        });
+    }
+    if (screen.width > screen.height) {
+        Promise.all([
+            loadExternalResource(live2d_path + "pio.min.css", "css"),
+            loadExternalResource(live2d_path + "l2d.min.js", "js"),
+        ]).then(() => {
+        loadExternalResource(live2d_path + "pio.min.js", "js").then(() => {
+          let pio_container = document.createElement("div");
+          pio_container.classList.add("pio-container");
+          pio_container.classList.add("right");
+          document.body.insertAdjacentElement("beforeend", pio_container);
+          let pio_action = document.createElement("div");
+          pio_action.classList.add("pio-action");
+          pio_container.insertAdjacentElement("beforeend", pio_action);
+          let pio_canvas = document.createElement("canvas");
+          pio_canvas.id = "pio";
+          pio_canvas.style.width = "14rem";
+          pio_canvas.width = "600";
+          pio_canvas.height = "800";
+          pio_container.insertAdjacentElement("beforeend", pio_canvas);
+          let pio = new Paul_Pio({
+            "mode": "fixed",
+            "hidden": true,
+            "content": {
+              "welcome": ["欢迎来到我的博客！"],
+              "link": "\/about\/",
+              "touch": ["你在干什么？", "萝莉控是什么呀？", "鼠…鼠标放错地方了！", "喵喵喵？！", "快把手拿开啦！", "我要生气哟！", "Hentai！", "不要再摸我啦！", "再摸的话我可要报警了！⌇●﹏●⌇", "110吗，这里有个变态一直在摸我(ó﹏ò｡)"],
+    
+              "custom": [{
+                "selector": ".profile-wrapper",
+                "text": "这是我的基本信息喔~"
+              },{
+                "selector": ".sidebar-bottom a",
+                "text": "这是我的其它账号噢~"
+              },{
+                "selector": "a:not(#post-list a,.sidebar-bottom a,.post-content a)",
+                "type": "link",
+              }, {
+                "selector": "#search-input",
+                "text": "想搜索什么呢？很多干货哦！"
+              }, {
+                "selector": "#toc",
+                "text": "这是目录~"
+              },{
+                "selector":".share-wrapper",
+                "text": "欢迎分享~"
+              },{
+                "selector":".mode-toggle",
+                "text": "切换夜间模式~"
+              }]
+            },
+            "model": [
+              "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2017.tomo-bukatsu.low.json",
+              "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
+              "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
+              "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/shizuku/shizuku.model.json",
+              "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
+              "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Pio/model1.json"
+            ]
+          });
+        })
+      });
+    }
+    
+    </script>

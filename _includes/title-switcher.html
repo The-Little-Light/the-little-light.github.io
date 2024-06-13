@@ -1,0 +1,21 @@
+
+<!-- title-switcher -->
+
+<script>
+
+    (function() {
+        var OriginTitile = document.title, titleTime;
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                document.title = 'Σ(っ °Д °;)っ哎呀，崩溃啦！';
+                clearTimeout(titleTime);
+            } else {
+                document.title = '(/≧▽≦/)咦！又好了！| ' + OriginTitile;
+                titleTime = setTimeout(function() {
+                    document.title = OriginTitile;
+                },1500);
+            }
+        });
+    })();
+        
+    </script>
